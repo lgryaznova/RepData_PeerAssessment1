@@ -98,7 +98,7 @@ The results demonstrate that there are 8 days with no data recorded at all.
 
 ## What is the average daily activity pattern?
 
-In order to get the average daily activity pattern, the dataset is summarised by 5-minute intervals. Below is a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
+In order to get the average daily activity pattern, the dataset is summarised by 5-minute intervals. Below is a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis). Note that intervals are named in a specific hour-minute notation without leading zeroes so that 2355 stands for 23.55 (or 11.55 pm), 5 stands for 00.05 (00.05 am), etc.  
 
 
 ```r
