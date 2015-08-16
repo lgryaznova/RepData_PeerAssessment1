@@ -244,7 +244,9 @@ new_by_intervals <- summarise(group_by(newdata, interval, weekday),
                                    mean = mean(steps))
 
 tsplot <- ggplot(new_by_intervals, aes(interval, mean))
-tsplot + geom_line() + facet_grid(weekday ~ .) + scale_x_continuous(breaks = pretty(new_by_intervals$interval, n = 12))
+tsplot + geom_line() + facet_grid(weekday ~ .) + 
+    scale_x_continuous(breaks = pretty(new_by_intervals$interval, n = 12)) + 
+    labs(x = "5-minute intervals", y = "Average number of steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
