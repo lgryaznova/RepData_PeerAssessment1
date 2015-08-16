@@ -107,7 +107,7 @@ by_intervals <- summarise(group_by(activity, interval),
 
 plot(by_intervals$interval, by_intervals$mean, type = "l",
      main = "Average daily activity pattern",
-     xlab = "5-minute interval", 
+     xlab = "5-minute intervals", 
      ylab = "Average number of steps")
 ```
 
@@ -144,7 +144,7 @@ sum(!removeNA)
 ## [1] 2304
 ```
 
-2304 NAs correspond to 8 days with missing data (288 intervals per day). To fill in these values we use the mean for that 5-minute interval. The new dataset without NAs is called `newdata`.
+2304 missing values correspond to 8 days with missing data (288 intervals per day). To fill in these values we use the mean for that 5-minute interval. The new dataset without NAs is called `newdata`.
 
 
 ```r
@@ -217,28 +217,19 @@ Thereby imputing missing values affected the original data significantly. While 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-First, `weekday` factor variable is added to the `newdata` dataset. The script checks the weekday name of the corresponding Date object and assignes one of the two labels ("weekday" and "weekend") indicating whether a given date is a weekday or weekend day. To work properly, the current locale should be set as English (the provided code works with Windows 7).
+First, `weekday` factor variable is added to the `newdata` dataset. The script checks the day of a week of the corresponding Date object and assignes one of the two labels ("weekday" and "weekend") indicating whether a given date is a weekday or weekend day. Since the output of the `weekdays()` is locale dependent, usage of this function together with character representation of days of a week may require adjusting locale for the end user and in its turn may result in problems with reproducibility. Therefore a more universal approach was chosen to code weekdays as decimal numbers 1 to 7 using `strftime(..., format = "%u")` where 1 stands for Monday. Also for the sake of this assignment **weekend days are considered to be Saturday and Sunday**. If the research is going to take place in a country with another weekend policy the code should be adjusted as appropriate.
 
-
-```r
-Sys.setlocale(category = "LC_ALL", locale = "English")
-```
 
 
 ```r
-newdata$weekday <- weekdays(newdata$date)
+newdata$weekday <- as.numeric(strftime(newdata$date, format = "%u"))
 
-weekday <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
-weekend <- c("Saturday", "Sunday")
-
-for (i in weekday) {
-    newdata$weekday <- gsub(pattern = i, replacement = "weekday", 
-                            newdata$weekday)
+for (i in 1:5) {
+    newdata$weekday <- gsub(i, "weekday", newdata$weekday)
 }
 
-for (i in weekend) {
-    newdata$weekday <- gsub(pattern = i, replacement = "weekend", 
-                            newdata$weekday)
+for (i in 6:7) {
+    newdata$weekday <- gsub(i, "weekend", newdata$weekday)
 }
 
 newdata$weekday <- as.factor(newdata$weekday)
@@ -256,9 +247,7 @@ tsplot <- ggplot(new_by_intervals, aes(interval, mean))
 tsplot + geom_line() + facet_grid(weekday ~ .)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
 
-According to the plot, there are some slight differences in activity patterns between weekdays and weekends (weekdays demonstrate a considerable peak in the morning), however the general pattern stays almost the same.
-
-
+According to the plot, weekdays demonstrate a longer activity period starting at around 5.30 am while on weekends it starts slightly later and shifted towards the end of a day. Also the weekday pattern includes an evident peak in the morning with lower activity later in the day. The weekend pattern is more even across the day.
 
