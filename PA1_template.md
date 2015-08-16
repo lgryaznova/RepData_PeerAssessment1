@@ -61,7 +61,7 @@ hist(by_dates$totalsteps, breaks = 20,
      xlab = "Number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/totalsteps-1.png) 
 
 The values of `mean` and `median` are as follows:
 
@@ -111,7 +111,7 @@ plot(by_intervals$interval, by_intervals$mean, type = "l",
      ylab = "Average number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
+![](PA1_template_files/figure-html/intervals-1.png) 
 
 The following code calculates the 5-minute interval, on average across all the days in the dataset, which contains the maximum number of steps.
 
@@ -178,7 +178,7 @@ hist(new_by_dates$totalsteps, breaks = 20,
      xlab = "Number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![](PA1_template_files/figure-html/newtotalsteps-1.png) 
 
 The new values of `mean` and `median` are as follows:
 
@@ -249,7 +249,7 @@ tsplot + geom_line() + facet_grid(weekday ~ .) +
     labs(x = "5-minute intervals", y = "Average number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
+![](PA1_template_files/figure-html/weekdays-1.png) 
 
 According to the plot, weekdays demonstrate a longer activity period starting at around 5.30 am while on weekends it starts slightly later and is shifted towards the end of a day. Also the weekday pattern includes an evident peak in the morning with lower activity later in the day. The weekend pattern is more even across the day.
 

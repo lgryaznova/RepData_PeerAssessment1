@@ -46,7 +46,7 @@ by_dates <- summarise(group_by(activity, date),
 
 Below is a histogram of the total number of steps taken each day.
 
-```{r}
+```{r totalsteps}
 hist(by_dates$totalsteps, breaks = 20, 
      main = "Total number of steps taken each day",
      xlab = "Number of steps")
@@ -65,7 +65,7 @@ The results demonstrate that there are 8 days with no data recorded at all.
 
 In order to get the average daily activity pattern, the dataset is summarised by 5-minute intervals. Below is a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis). Note that intervals are named in a specific hour-minute notation without leading zeroes so that 2355 stands for 23.55 (or 11.55 pm), 5 stands for 00.05 (00.05 am), etc.  
 
-```{r}
+```{r intervals}
 by_intervals <- summarise(group_by(activity, interval),
                           mean = mean(steps, na.rm = TRUE))
 
@@ -119,7 +119,7 @@ new_by_dates <- summarise(group_by(newdata, date),
 
 Below is a histogram of the total number of steps taken each day (with some data filled in instead of NA).
 
-```{r}
+```{r newtotalsteps}
 hist(new_by_dates$totalsteps, breaks = 20, 
      main = "Total number of steps taken each day (without NAs)",
      xlab = "Number of steps")
@@ -155,7 +155,7 @@ newdata$weekday <- as.factor(newdata$weekday)
 
 Below is a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). **ggplot2** package is required for this plot.
 
-```{r, warning = FALSE, message = FALSE}
+```{r weekdays, warning = FALSE, message = FALSE}
 require(ggplot2)
 new_by_intervals <- summarise(group_by(newdata, interval, weekday), 
                                    mean = mean(steps))
