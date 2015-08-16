@@ -244,10 +244,10 @@ new_by_intervals <- summarise(group_by(newdata, interval, weekday),
                                    mean = mean(steps))
 
 tsplot <- ggplot(new_by_intervals, aes(interval, mean))
-tsplot + geom_line() + facet_grid(weekday ~ .)
+tsplot + geom_line() + facet_grid(weekday ~ .) + scale_x_continuous(breaks = pretty(new_by_intervals$interval, n = 12))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
 
-According to the plot, weekdays demonstrate a longer activity period starting at around 5.30 am while on weekends it starts slightly later and shifted towards the end of a day. Also the weekday pattern includes an evident peak in the morning with lower activity later in the day. The weekend pattern is more even across the day.
+According to the plot, weekdays demonstrate a longer activity period starting at around 5.30 am while on weekends it starts slightly later and is shifted towards the end of a day. Also the weekday pattern includes an evident peak in the morning with lower activity later in the day. The weekend pattern is more even across the day.
 
