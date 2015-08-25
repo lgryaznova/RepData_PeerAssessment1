@@ -34,14 +34,12 @@ head(activity)
 ## What is mean total number of steps taken per day?
 ## summarise by dates, calculate total number of steps taken each day
 
-Next, the data is summarised by dates into a new dataset `by_dates` using **dplyr** package, and the total number of steps taken each day is calculated and added to this dataset as a variable `totalsteps`. **Mean** and **median** of total number of steps taken per day are also calculated and added as `mean` and `median` variables respectively. Missing values are ignored.
+Next, the data is summarised by dates into a new dataset `by_dates` using **dplyr** package, and the total number of steps taken each day is calculated and added to this dataset as a variable `totalsteps`. Missing values are ignored.
 
 ```{r, message=FALSE}
 require(dplyr)
 by_dates <- summarise(group_by(activity, date), 
-                   totalsteps = sum(steps), 
-                   mean = mean(steps, na.rm = TRUE), 
-                   median = median(steps, na.rm = TRUE))
+                   totalsteps = sum(steps))
 ```
 
 Below is a histogram of the total number of steps taken each day.
@@ -52,11 +50,11 @@ hist(by_dates$totalsteps, breaks = 20,
      xlab = "Number of steps")
 ```
 
-The values of `mean` and `median` are as follows:
+**Mean** and **median** of total number of steps taken per day are as follows:
 
 ```{r}
-by_dates$mean
-by_dates$median
+mean(by_dates$totalsteps, na.rm = TRUE)
+median(by_dates$totalsteps, na.rm = TRUE)
 ```
 
 The results demonstrate that there are 8 days with no data recorded at all.
@@ -112,9 +110,7 @@ Then `newdata` with filled in values is summarised by dates into a new dataset `
 
 ```{r}
 new_by_dates <- summarise(group_by(newdata, date), 
-                       totalsteps = sum(steps), 
-                       mean = mean(steps, na.rm = TRUE), 
-                       median = median(steps, na.rm = TRUE))
+                       totalsteps = sum(steps))
 ```
 
 Below is a histogram of the total number of steps taken each day (with some data filled in instead of NA).
@@ -128,11 +124,11 @@ hist(new_by_dates$totalsteps, breaks = 20,
 The new values of `mean` and `median` are as follows:
 
 ```{r}
-new_by_dates$mean
-new_by_dates$median
+mean(new_by_dates$totalsteps, na.rm = TRUE)
+median(new_by_dates$totalsteps, na.rm = TRUE)
 ```
 
-Thereby imputing missing values affected the original data significantly. While `mean` values seem to be realistic, `median` is likely to be predicted  mistakenly. Values of total number of steps taken each day were also slightly affected demonstrating a shift towards average values.
+Thereby imputing missing values didn't affect the original data significantly. `mean` and `median` values are quite close to those calculated before imputing. Values of total number of steps taken each day demonstrate a shift towards average values.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
